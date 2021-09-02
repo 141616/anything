@@ -7,6 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@types/react-router-dom": "^5.1.8",
     "antd": "^4.16.0",
     "axios": "^0.21.1",
     "dotwallet-jssdk": "^1.2.4",
@@ -15,6 +16,7 @@
     "react-dom": "^17.0.0",
     "react-lottie": "^1.2.3",
     "react-query": "^3.21.1",
+    "react-router-dom": "^5.2.1",
     "three": "^0.129.0"
   },
   "devDependencies": {

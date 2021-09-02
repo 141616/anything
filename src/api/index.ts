@@ -1,10 +1,40 @@
-import axios from "axios";
+// import axios from "axios";
 
-export const fetchUser = () => {
-  return axios.get("http://192.168.1.13:6001/v1/user", {
-    headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxM2YzNmE5N2YwMjUwYmMyZWUxMjhiNTcyYjg1ZmFhNCIsImV4cCI6MTYzMDMyNjA5MCwic3ViIjoiZDAxNGI4YWQ3YzQ3Zjk2ZGUzY2VkZmUxMGU2ODYxMGEiLCJzY29wZSI6ImFsbCJ9.nHg-u9EMutPhAk-TmFOIlW7tGVnX0pBFyWU2gfg7snJAqYbarHRJKsXTy3YHsa1soY83bBzHFD6wuqOnNxnHhA`,
-      "Client-Id": "13f36a97f0250bc2ee128b572b85faa4",
-    },
-  });
+import { CommonResponses } from "../models";
+import { Request } from "../utils";
+
+const host = "http://192.168.1.13:6001";
+
+export const fetchUser: () => Promise<CommonResponses> = () => {
+  return Request.get(`${host}/v1/user`);
+};
+
+export async function login(data: {
+  client_id: string;
+  provider: string;
+  account: string;
+  password: string;
+  mobile_prefix?: string;
+  from: string;
+}) {
+  return Request.post(`${host}/v1/signin`, data);
+}
+
+export const getCategoryList: () => Promise<CommonResponses> = () => {
+  return Request.post(`${host}/v1/grandet_public/nft_get_categories`);
+};
+
+export const getProductList: (data: {
+  page: number;
+  page_size: number;
+  category_id?: string;
+}) => Promise<CommonResponses> = (data) => {
+  return Request.post(`${host}/v1/grandet_public/nft_get_works`, data);
+};
+
+export default {
+  fetchUser,
+  login,
+  getCategoryList,
+  getProductList,
 };
