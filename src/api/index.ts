@@ -24,12 +24,38 @@ export const getCategoryList: () => Promise<CommonResponses> = () => {
   return Request.post(`${host}/v1/grandet_public/nft_get_categories`);
 };
 
-export const getProductList: (data: {
+export const getProductList: (params: {
   page: number;
   page_size: number;
   category_id?: string;
-}) => Promise<CommonResponses> = (data) => {
-  return Request.post(`${host}/v1/grandet_public/nft_get_works`, data);
+}) => Promise<{
+  list: any[];
+  total: number;
+  page: number;
+  nextPage: number | undefined;
+  pageSize: number;
+}> = async (params) => {
+  try {
+    const { data } = await Request.post(
+      `${host}/v1/grandet_public/nft_get_works`,
+      params
+    );
+
+    const list = data?.data.list || [];
+    const total = data?.data.total || 0;
+    const { page, page_size } = params;
+    const hasNext = total > page * page_size;
+
+    return Promise.resolve({
+      list,
+      total,
+      page,
+      nextPage: hasNext ? page + 1 : undefined,
+      pageSize: params.page_size,
+    });
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };
 
 export default {

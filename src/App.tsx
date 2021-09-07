@@ -6,6 +6,7 @@ import {
   useHistory,
   useRouteMatch,
 } from "react-router-dom";
+import Coin from "./components/Coin";
 
 import Home from "./pages/home";
 import Login from "./pages/login";
@@ -17,6 +18,7 @@ function App() {
     <Router>
       <Route>
         <Switch>
+          <Route path="/pic" component={Coin} />
           <Route path="/login" component={Login} />
           <Route path="/" component={Home} />
         </Switch>

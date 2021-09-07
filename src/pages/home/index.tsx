@@ -1,5 +1,6 @@
 import * as React from "react";
 import CategoryList from "../../components/CategoryList";
+import Coin from "../../components/Coin";
 import ProductList from "../../components/ProductList";
 import User from "../../components/User";
 
